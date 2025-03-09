@@ -1,1 +1,480 @@
-<h1>Hello World</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Freelance Brand Scaling Info</title>
+  <!-- Google Font: Merriweather for a classic, readable look -->
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <!-- CSS Styles -->
+  <style>
+    /* Basic Reset and Typography */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Merriweather', serif;
+      background: #fdfdfd;
+      color: #333;
+      line-height: 1.8;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    a {
+      text-decoration: none;
+      color: #0073e6;
+      transition: color 0.3s ease;
+    }
+    a:hover {
+      color: #005bb5;
+    }
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #f5f5f5 0%, #eaeaea 100%);
+      padding: 20px;
+      border-bottom: 1px solid #ddd;
+      text-align: center;
+      position: relative;
+    }
+    header h1 {
+      font-size: 2em;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    header h1 i {
+      margin-right: 10px;
+      color: #0073e6;
+    }
+    /* Desktop Mode Switch (visible on desktop) */
+    #desktopModeSwitch {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      background: none;
+      border: none;
+      color: #0073e6;
+      font-size: 1.5em;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    #desktopModeSwitch:hover {
+      color: #005bb5;
+    }
+    /* Mobile-only Mode Switch Container */
+    #modeSwitchContainer {
+      display: none;
+    }
+    /* Container: Sidebar + Main Content */
+    .container {
+      display: flex;
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+    /* Sidebar Table of Contents */
+    aside.toc {
+      flex: 0 0 250px;
+      margin-right: 40px;
+    }
+    aside.toc nav {
+      background: #fafafa;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      position: sticky;
+      top: 20px;
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+    aside.toc nav h2 {
+      font-size: 1.2em;
+      margin-bottom: 15px;
+    }
+    aside.toc nav ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    aside.toc nav ul li {
+      margin-bottom: 10px;
+      font-size: 0.95em;
+    }
+    aside.toc nav ul li a {
+      display: block;
+      padding: 5px 10px;
+      border-radius: 4px;
+    }
+    aside.toc nav ul li a.active,
+    aside.toc nav ul li a:hover {
+      background: #e0f0ff;
+    }
+    /* Main Content Area */
+    main.content {
+      flex: 1;
+      padding-bottom: 40px;
+    }
+    main.content article {
+      margin-bottom: 60px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    main.content article.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    main.content article h2 {
+      color: #0073e6;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 5px;
+      margin-bottom: 20px;
+      font-size: 1.8em;
+    }
+    main.content article p,
+    main.content article ul {
+      margin-bottom: 15px;
+      font-size: 1em;
+      text-align: justify;
+    }
+    main.content article ul {
+      margin-left: 20px;
+    }
+    /* Back to Top Button */
+    #backToTop {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #0073e6;
+      color: #fff;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2em;
+      display: none;
+      transition: background 0.3s ease;
+      z-index: 100;
+    }
+    #backToTop:hover {
+      background: #005bb5;
+    }
+    /* Footer */
+    footer {
+      background: #f5f5f5;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+      color: #777;
+      border-top: 1px solid #ddd;
+      margin-top: 40px;
+      transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    }
+    /* Dark Mode Styles */
+    body.dark-mode {
+      background: #121212;
+      color: #e0e0e0;
+    }
+    body.dark-mode header {
+      background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+      border-bottom: 1px solid #333;
+    }
+    body.dark-mode header h1 i {
+      color: #e0e0e0;
+    }
+    body.dark-mode #desktopModeSwitch {
+      color: #fff;
+    }
+    body.dark-mode aside.toc nav {
+      background: #1e1e1e;
+      border: 1px solid #333;
+    }
+    body.dark-mode aside.toc nav ul li a.active,
+    body.dark-mode aside.toc nav ul li a:hover {
+      background: #2a2a2a;
+    }
+    body.dark-mode main.content article h2 {
+      color: #336699;
+      border-bottom: 1px solid #333;
+    }
+    body.dark-mode a {
+      color: #5577aa;
+    }
+    body.dark-mode a:hover {
+      color: #7799cc;
+    }
+    body.dark-mode footer {
+      background: #1a1a1a;
+      border-top: 1px solid #333;
+      color: #aaa;
+    }
+    /* Mobile Styles */
+    @media (max-width: 1024px) {
+      /* Stack sidebar above main content */
+      .container {
+        flex-direction: column;
+      }
+      aside.toc {
+        margin-right: 0;
+        margin-bottom: 30px;
+      }
+      aside.toc nav {
+        position: relative;
+        top: auto;
+      }
+    }
+    @media (max-width: 768px) {
+      /* Hide desktop toggle */
+      #desktopModeSwitch {
+        display: none;
+      }
+      /* Display the mobile-only mode switch container */
+      #modeSwitchContainer {
+        display: block;
+        position: fixed;
+        right: 0;
+        top: 80px; /* positioned just under the header */
+        background: #0073e6;
+        color: #fff;
+        padding: 10px 15px;
+        border-radius: 0 0 0 10px;
+        z-index: 110;
+        text-align: center;
+      }
+      #modeSwitchContainer button {
+        background: none;
+        border: none;
+        color: inherit;
+        font-size: 1.5em;
+        cursor: pointer;
+      }
+      #modeSwitchContainer a {
+        display: block;
+        margin-top: 5px;
+        font-size: 0.85em;
+        color: #fff;
+      }
+      #modeSwitchContainer a:hover {
+        text-decoration: underline;
+      }
+      body.dark-mode #modeSwitchContainer {
+        background: #336699;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header (Desktop toggle visible here) -->
+  <header>
+    <h1><i class="fas fa-book-open"></i> Freelance Brand Scaling Info</h1>
+    <button id="desktopModeSwitch" title="Toggle Dark Mode"><i class="fas fa-moon"></i></button>
+  </header>
+
+  <!-- Mobile Mode Switch Container (visible only on mobile) -->
+  <div id="modeSwitchContainer">
+    <button id="modeSwitch" title="Toggle Dark Mode"><i class="fas fa-moon"></i></button>
+    <a href="#" id="hideSwitch">Hide</a>
+  </div>
+
+  <!-- Main Container -->
+  <div class="container">
+    <!-- Sidebar Table of Contents -->
+    <aside class="toc">
+      <nav>
+        <h2>Contents</h2>
+        <ul>
+          <li><a href="#introduction"><i class="fas fa-chevron-right"></i> Introduction</a></li>
+          <li><a href="#definition"><i class="fas fa-chevron-right"></i> Definition</a></li>
+          <li><a href="#importance"><i class="fas fa-chevron-right"></i> Importance</a></li>
+          <li><a href="#strategies"><i class="fas fa-chevron-right"></i> Strategies</a></li>
+          <li><a href="#tools"><i class="fas fa-chevron-right"></i> Tools &amp; Resources</a></li>
+          <li><a href="#case-studies"><i class="fas fa-chevron-right"></i> Case Studies</a></li>
+          <li><a href="#best-practices"><i class="fas fa-chevron-right"></i> Best Practices</a></li>
+          <li><a href="#references"><i class="fas fa-chevron-right"></i> References</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="content">
+      <!-- Introduction Section -->
+      <article id="article">
+        <h2>Introduction</h2>
+        <p>
+          Welcome to <strong>Freelance Brand Scaling Info</strong>, your one-stop resource designed exclusively for freelancers who are ready to evolve from isolated gig work into a thriving, scalable personal brand. Our mission is to empower you with the knowledge, strategies, and tools necessary to elevate your freelance career—transforming it into a robust, sustainable business.
+        </p>
+        <p>
+          On this platform, you’ll discover a wealth of detailed content—from foundational insights into what freelance brand scaling truly means to advanced tactics for boosting your online visibility, building a compelling reputation, and streamlining your operations for growth. We break down complex concepts into actionable steps, covering topics such as:
+        </p>
+        <ul>
+          <li><strong>Brand Visibility and Reputation Management:</strong> Enhance your digital presence, establish credibility, and secure high-quality clients.</li>
+          <li><strong>Strategic Growth Tactics:</strong> Implement proven marketing strategies, client acquisition techniques, and process improvements to manage increased demand without sacrificing quality.</li>
+          <li><strong>Operational Optimization:</strong> Streamline workflows, invest in technology, and leverage analytics to make informed business decisions.</li>
+          <li><strong>Real-world Case Studies:</strong> Draw inspiration from success stories of freelancers who have scaled their brands and now enjoy long-term stability and premium opportunities.</li>
+          <li><strong>Curated Resources and Tools:</strong> Access our hand-picked selection of digital tools, platforms, and reading materials to keep you ahead in a competitive market.</li>
+        </ul>
+        <p>
+          Whether you’re just starting out or you’re an experienced freelancer looking to build a resilient personal brand, our in-depth guides and practical insights are tailored to help you navigate growth challenges and achieve lasting success.
+        </p>
+        <p>
+          Explore our content, implement the strategies that resonate with your goals, and join a community of forward-thinking freelancers dedicated to turning passion into a profitable, scalable brand. Your future self will thank you for the foundation you build today!
+        </p>
+      </article>
+
+
+      <!-- Definition Section -->
+      <article id="definition">
+        <h2>Definition</h2>
+        <p>
+          <strong>Freelance Brand Scaling</strong> is the process of strategically growing a freelancer's personal brand by increasing their visibility, reputation, and client base, while optimizing business operations to handle more work and generate increased revenue. This approach focuses on long-term brand development rather than gig-to-gig work.
+        </p>
+      </article>
+
+      <!-- Importance Section -->
+      <article id="importance">
+        <h2>Importance</h2>
+        <p>
+          In today’s competitive freelance landscape, scaling your brand is vital to stand out and secure high-quality opportunities. A strong personal brand can help you command premium rates, attract loyal clients, and build a sustainable career.
+        </p>
+      </article>
+
+      <!-- Strategies Section -->
+      <article id="strategies">
+        <h2>Strategies for Scaling</h2>
+        <p>
+          Effective brand scaling is achieved through a blend of innovative marketing, operational optimization, and continuous self-improvement. Key strategies include:
+        </p>
+        <ul>
+          <li>Boosting online presence with strategic content and social media engagement.</li>
+          <li>Establishing trust through client testimonials and case studies.</li>
+          <li>Streamlining workflows to manage increased demand.</li>
+          <li>Investing in professional development and industry insights.</li>
+        </ul>
+      </article>
+
+      <!-- Tools & Resources Section -->
+      <article id="tools">
+        <h2>Tools &amp; Resources</h2>
+        <p>
+          A variety of tools and platforms can help streamline your operations and elevate your brand. Explore analytics platforms, content management systems, and productivity tools to support your growth.
+        </p>
+      </article>
+
+      <!-- Case Studies Section -->
+      <article id="case-studies">
+        <h2>Case Studies</h2>
+        <p>
+          Discover success stories from freelancers who have effectively scaled their brands. These case studies provide practical examples and insights that you can apply to your own journey.
+        </p>
+      </article>
+
+      <!-- Best Practices Section -->
+      <article id="best-practices">
+        <h2>Best Practices</h2>
+        <p>
+          Consistency, quality, and strategic planning are the keys to success. Learn how to maintain excellent service, engage your audience, and continually refine your business model to stay ahead.
+        </p>
+      </article>
+
+      <!-- References Section -->
+      <article id="references">
+        <h2>References</h2>
+        <p>
+          For additional reading and more detailed guides, explore these resources:
+        </p>
+        <ul>
+          <li><a href="#" target="_blank"><i class="fas fa-external-link-alt"></i> In-Depth Guide to Freelance Success</a></li>
+          <li><a href="#" target="_blank"><i class="fas fa-external-link-alt"></i> Optimizing Your Workflow</a></li>
+          <li><a href="#" target="_blank"><i class="fas fa-external-link-alt"></i> Building a Resilient Personal Brand</a></li>
+        </ul>
+      </article>
+    </main>
+  </div>
+
+  <!-- Back to Top Button -->
+  <button id="backToTop" title="Back to Top"><i class="fas fa-chevron-up"></i></button>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Freelance Brand Scaling Info. All rights reserved.</p>
+  </footer>
+
+  <!-- JavaScript for Smooth Scrolling, Scroll Spy, Back to Top, & Dark Mode Toggle -->
+  <script>
+    // Smooth scrolling for sidebar navigation links
+    document.querySelectorAll('aside.toc nav a').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          window.scrollTo({
+            top: target.offsetTop - 20,
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+
+    // Scroll spy: highlight active section in TOC using IntersectionObserver
+    const tocLinks = document.querySelectorAll('aside.toc nav a');
+    const articles = document.querySelectorAll('main.content article');
+    const observerOptions = { root: null, threshold: 0.3 };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting) {
+          tocLinks.forEach(link => link.classList.remove('active'));
+          const activeLink = document.querySelector(`aside.toc nav a[href="#${entry.target.id}"]`);
+          if(activeLink) activeLink.classList.add('active');
+          entry.target.classList.add('visible');
+        }
+      });
+    }, observerOptions);
+    articles.forEach(article => observer.observe(article));
+
+    // Back to Top button functionality
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      backToTop.style.display = window.pageYOffset > 300 ? 'block' : 'none';
+    });
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Dark Mode Toggle Functionality (for both toggles)
+    function toggleDarkMode(toggleButton) {
+      document.body.classList.toggle('dark-mode');
+      const icon = toggleButton.querySelector('i');
+      if(document.body.classList.contains('dark-mode')) {
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+      } else {
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
+      }
+    }
+
+    // Desktop toggle
+    const desktopToggle = document.getElementById('desktopModeSwitch');
+    if (desktopToggle) {
+      desktopToggle.addEventListener('click', function() {
+        toggleDarkMode(this);
+      });
+    }
+    // Mobile toggle
+    const mobileToggle = document.getElementById('modeSwitch');
+    if (mobileToggle) {
+      mobileToggle.addEventListener('click', function() {
+        toggleDarkMode(this);
+      });
+    }
+
+    // Hide Mobile Mode Switch Container on click of "Hide" link
+    const hideSwitch = document.getElementById('hideSwitch');
+    hideSwitch.addEventListener('click', function(e) {
+      e.preventDefault();
+      document.getElementById('modeSwitchContainer').style.display = 'none';
+    });
+  </script>
+</body>
+</html>
